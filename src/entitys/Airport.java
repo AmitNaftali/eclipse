@@ -6,6 +6,6 @@ public class Airport {
 		this.name = name;
 	}
 	public void test() {
-		
+		System.out.println(name);
 	}
 }
