@@ -5,4 +5,7 @@ public class Airport {
 	public Airport(String name) {
 		this.name = name;
 	}
+	public void test() {
+		
+	}
 }
