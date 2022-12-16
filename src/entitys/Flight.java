@@ -25,7 +25,7 @@ public class Flight implements Comparable<Flight> {
 	}
 
 	public void setDepartureTime(double departureTime) {
-		departureTime = departureTime;
+		this.departureTime = departureTime;
 	}
 
 	public double getLandingTime() {
@@ -37,7 +37,7 @@ public class Flight implements Comparable<Flight> {
 	}
 	
 	public boolean addTraveler(Traveler tr) {
-		if(seatCount==p.getSeatsNum()) {
+		if(seatCount == p.getSeatsNum()) {
 			System.out.println("unable to add traveler. plane is full");
 			return false;
 		}
@@ -56,7 +56,8 @@ public class Flight implements Comparable<Flight> {
 			return false;
 		}
 		else {
-			t.remove(tr);
+			if(!t.remove(tr))
+				return false;
 			seatCount--;
 			Collections.sort(t);
 			System.out.println("traveler removed");
@@ -68,8 +69,5 @@ public class Flight implements Comparable<Flight> {
 	public int compareTo(Flight f) {
 		return (int) (this.departureTime-f.getDepartureTime());
 	}
-	
-	
-	
 
 }
