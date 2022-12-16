@@ -1,7 +1,9 @@
 package entitys;
 
-public class Traveler implements Comparable<Traveler>{
-	private int passportId;
+import java.io.Serializable;
+
+public class Traveler implements Comparable<Traveler>,Serializable{
+	private int passportId; //unique id
 	private String fullName;
 	
 	public Traveler(int passportId, String fullName) {
@@ -29,7 +31,7 @@ public class Traveler implements Comparable<Traveler>{
 	public String toString() {
 		return "Traveller: passportId=" + passportId + ", fullName=" + fullName;
 	}
-
+	//compare by passport id
 	@Override
 	public int compareTo(Traveler t) {
 		return this.passportId-t.getPassportId();

@@ -5,7 +5,6 @@ public class Plane {
 	private int seatsNum;
 	
 	public Plane(String model, int seatsNum) {
-		super();
 		this.model = model;
 		this.seatsNum = seatsNum;
 	}

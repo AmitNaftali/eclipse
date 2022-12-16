@@ -6,6 +6,7 @@ import java.util.Collections;
 public class Airport {
 	private String name;
 	private int flightcount;
+	private final int MAX_FLIGHT_COUNT = 30;
 	private ArrayList<Flight> f;
 
 	public Airport(String name, int flightcount) {
@@ -15,7 +16,7 @@ public class Airport {
 	}
 
 	public boolean addFlight(Flight fl) {
-		if (flightcount == 30) {
+		if (flightcount == MAX_FLIGHT_COUNT) {
 			System.out.println("unable to add Flight. airport is full");
 			return false;
 		}

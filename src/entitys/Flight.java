@@ -1,9 +1,11 @@
 package entitys;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Flight implements Comparable<Flight> {
+public class Flight implements Comparable<Flight>,Serializable{
+	private int id; // unique id
 	private ArrayList<Traveler> t;
 	private int seatCount;
 	private double departureTime;
@@ -51,23 +53,27 @@ public class Flight implements Comparable<Flight> {
 	}
 	
 	public boolean removeTraveler(Traveler tr) {
-		if(seatCount==0) {
+		if(seatCount==0 && !t.remove(tr)) {
 			System.out.println("unable to remove traveler. no such traveler in this flight");
 			return false;
 		}
 		else {
-			if(!t.remove(tr))
-				return false;
 			seatCount--;
-			Collections.sort(t);
 			System.out.println("traveler removed");
 			return true;
 		}
 	}
-
+	
+	//compare by departure time
 	@Override
 	public int compareTo(Flight f) {
-		return (int) (this.departureTime-f.getDepartureTime());
+		return Double.compare(this.departureTime, f.departureTime);
+	}
+
+	@Override
+	public String toString() {
+		return "Flight [travelers=" + t + ",\nseatCount=" + seatCount + ",\ndepartureTime=" + departureTime + ",\nlandingTime="
+				+ landingTime + ",\np=" + p + ",\ndestination=" + destination + "]";
 	}
 
 }
