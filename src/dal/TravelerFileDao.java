@@ -1,14 +1,4 @@
 package dal;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -16,8 +6,9 @@ import org.springframework.stereotype.Component;
 
 import entitys.Traveler;
 
+//bean
 @Component
-public class TravelerFileDao implements FileDao{
+public class TravelerFileDao implements FileDao<Traveler>{
 
 	@Override
 	public List<Traveler> getAll() throws Exception {
@@ -48,7 +39,5 @@ public class TravelerFileDao implements FileDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
+	
 }
