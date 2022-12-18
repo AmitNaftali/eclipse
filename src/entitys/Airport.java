@@ -8,7 +8,7 @@ public final class Airport {
 	private String name;
 	private int flightcount;
 	private final int MAX_FLIGHT_COUNT = 30;
-	private ArrayList<Flight> f;
+	private ArrayList<Flight> flights;
 
 	private Airport() {
 	}
@@ -23,9 +23,9 @@ public final class Airport {
 			return false;
 		}
 		else {
-			f.add(fl);
+			flights.add(fl);
 			flightcount++;
-			Collections.sort(f);
+			Collections.sort(flights);
 			System.out.println("flight added");
 			return true;
 		}
