@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import entitys.Airport;
 import entitys.Flight;
 
+
 @Component
 public class AirportFileDao implements FileDao{
 	private Airport airport;
