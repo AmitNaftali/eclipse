@@ -9,6 +9,8 @@ import entitys.Traveler;
 //bean
 @Component
 public class TravelerFileDao implements FileDao<Traveler>{
+	
+	private int l;
 
 	@Override
 	public List<Traveler> getAll() throws Exception {
