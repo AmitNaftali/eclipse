@@ -10,6 +10,7 @@ public class AirportCLI {
 		//update traveler
 		//delete traveler
 		//exit
+		
 	}
 
 }

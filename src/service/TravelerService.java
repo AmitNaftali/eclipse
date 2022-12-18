@@ -12,5 +12,5 @@ import entitys.Traveler;
 public class TravelerService {
 	@Qualifier()//TravelerFileDao
 	@Autowired
-	private FileDao<Traveler> dependency;
+	private FileDao dependency;
 }
