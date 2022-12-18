@@ -10,7 +10,7 @@ import entitys.Traveler;
 @Component
 public class TravelerFileDao implements FileDao<Traveler>{
 	
-	private int s;
+	private int l;
 
 	@Override
 	public List<Traveler> getAll() throws Exception {
