@@ -67,7 +67,7 @@ public class Flight implements Comparable<Flight>,Serializable{
 	//compare by departure time
 	@Override
 	public int compareTo(Flight f) {
-		return Double.compare(this.departureTime, f.departureTime);
+		return Double.compare(this.id, f.id);
 	}
 
 	@Override
