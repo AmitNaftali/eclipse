@@ -1,12 +1,13 @@
 package dal;
 
 import java.util.List;
-import entitys.Traveler;
 
-public interface FileDao<T> {
-	public List<T> getAll() throws Exception;
-	public void save(T t) throws Exception;
-	public void update(T t) throws Exception;
+import entitys.Flight;
+
+public interface FileDao {
+	public List<Flight> getAll() throws Exception;
+	public void save(Flight a) throws Exception;
+	public void update(int id, Flight a) throws Exception;
 	public void delete(int id) throws Exception;
-	public T get(int id) throws Exception;
+	public Flight get(int id) throws Exception;
 }

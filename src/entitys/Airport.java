@@ -2,17 +2,26 @@ package entitys;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Airport {
 	private String name;
 	private int flightcount;
 	private final int MAX_FLIGHT_COUNT = 30;
-	private ArrayList<Flight> f;
+	private List<Flight> flights;
+
+	public List<Flight> getFlights() {
+		return flights;
+	}
+
+	public void setFlights(List<Flight> flights) {
+		this.flights = flights;
+	}
 
 	public Airport(String name, int flightcount) {
 		this.name = name;
 		this.flightcount = 0;
-		this.f = new ArrayList<Flight>();
+		this.flights = new ArrayList<Flight>();
 	}
 
 	public boolean addFlight(Flight fl) {
@@ -21,9 +30,9 @@ public class Airport {
 			return false;
 		}
 		else {
-			f.add(fl);
+			flights.add(fl);
 			flightcount++;
-			Collections.sort(f);
+			Collections.sort(flights);
 			System.out.println("flight added");
 			return true;
 		}

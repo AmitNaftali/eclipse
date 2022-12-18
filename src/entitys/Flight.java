@@ -7,6 +7,14 @@ import java.util.Collections;
 public class Flight implements Comparable<Flight>,Serializable{
 	private int id; // unique id
 	private ArrayList<Traveler> t;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	private int seatCount;
 	private double departureTime;
 	private double landingTime;
@@ -62,6 +70,15 @@ public class Flight implements Comparable<Flight>,Serializable{
 			System.out.println("traveler removed");
 			return true;
 		}
+	}
+	public void changeFlight(Flight other)
+	{
+		this.departureTime=other.departureTime;
+		this.landingTime=other.landingTime;
+		this.p=other.p;
+		this.t=other.t;
+		this.seatCount=other.seatCount;
+		this.destination=other.destination;
 	}
 	
 	//compare by departure time
