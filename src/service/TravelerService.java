@@ -10,6 +10,7 @@ import dal.FileDao;
 import entitys.Flight;
 import entitys.Traveler;
 
+
 //service
 @Component
 public class TravelerService {

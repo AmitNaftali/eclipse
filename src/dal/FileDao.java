@@ -5,6 +5,7 @@ import java.util.List;
 
 import entitys.Flight;
 
+
 public interface FileDao {
 	public List<Flight> getAll() throws Exception;
 	public void save(Flight a) throws Exception;
