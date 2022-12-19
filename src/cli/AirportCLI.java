@@ -1,5 +1,7 @@
 package cli;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class AirportCLI {
 
 	public static void main(String[] args) {
@@ -10,7 +12,10 @@ public class AirportCLI {
 		//update traveler
 		//delete traveler
 		//exit
-		
+		// Load the Spring configuration file
+
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		context.close();
 	}
 
 }

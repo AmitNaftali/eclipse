@@ -16,10 +16,11 @@ import exceptions.FlightNotFoundException;
 
 //service
 public class TravelerService {
-	
-	@Qualifier()//TravelerFileDao
 	@Autowired
 	private FileDao dependency;
+	private final int MAX_TRAVELERS = 100;
+    private final int MAX_FLIGHTS = 30;
+    private final int FLIGHTS_COUNT = 0;
 	
 	public List<Flight> getAll() throws Exception {
 		return dependency.getAll();
