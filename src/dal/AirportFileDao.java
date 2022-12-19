@@ -82,17 +82,18 @@ public class AirportFileDao implements FileDao{
 	}
 	private void deserialize() throws Exception
 	{
-		airport = null;
-		// Add the student object as a model attribute
-		// Deserialization
-		String filename = "airport.dat"; 
-        // Reading the object from a file
-        FileInputStream file = new FileInputStream(filename);
-        ObjectInputStream in = new ObjectInputStream(file);
-        // Method for deserialization of object
-        airport = (Airport)in.readObject();
-        in.close();
-        file.close();
+		if(airport == null) {
+			// Add the student object as a model attribute
+			// Deserialization
+			String filename = "airport.dat"; 
+	        // Reading the object from a file
+	        FileInputStream file = new FileInputStream(filename);
+	        ObjectInputStream in = new ObjectInputStream(file);
+	        // Method for deserialization of object
+	        airport = (Airport)in.readObject();
+	        in.close();
+	        file.close();
+		}		
 	}
 	
 }
