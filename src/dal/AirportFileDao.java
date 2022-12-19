@@ -15,7 +15,6 @@ import entitys.Flight;
 
 
 
-@Component
 public class AirportFileDao implements FileDao{
 	private Airport airport;
 
