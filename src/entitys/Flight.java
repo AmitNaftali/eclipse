@@ -80,6 +80,17 @@ public class Flight implements Comparable<Flight>, Serializable {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj == this)
+			return true;
+		if(obj == null || obj.getClass() != this.getClass())
+			return false;
+		Flight f = (Flight)obj;
+		return f.id == this.id;
+	}
+
+	@Override
 	public int compareTo(Flight f) {
 		return Double.compare(this.id, f.id);
 	}
