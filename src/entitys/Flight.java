@@ -6,17 +6,7 @@ import java.util.Collections;
 
 public class Flight implements Comparable<Flight>, Serializable {
 	private int id; // unique id
-	private ArrayList<Traveler> t;
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	private ArrayList<Traveler> travelers;
-	private int seatCount;
 	private double departureTime;
 	private double landingTime;
 	private Plane plane;
@@ -27,10 +17,16 @@ public class Flight implements Comparable<Flight>, Serializable {
 		this.landingTime = landingTime;
 		this.plane = p;
 		this.travelers = new ArrayList<Traveler>();
-		this.seatCount = 0;
 		this.destination = destination;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	public double getDepartureTime() {
 		return departureTime;
 	}
@@ -48,12 +44,11 @@ public class Flight implements Comparable<Flight>, Serializable {
 	}
 
 	public boolean addTraveler(Traveler tr) {
-		if (seatCount == plane.getSeatsNum()) {
+		if (travelers.size() == plane.getSeatsNum()) {
 			System.out.println("unable to add traveler. plane is full");
 			return false;
 		}
 		travelers.add(tr);
-		seatCount++;
 		Collections.sort(travelers);
 		System.out.println("traveler added");
 		return true;
@@ -61,11 +56,10 @@ public class Flight implements Comparable<Flight>, Serializable {
 	}
 
 	public boolean removeTraveler(Traveler tr) {
-		if (seatCount == 0 && !travelers.remove(tr)) {
+		if (travelers.size() == 0 && !travelers.remove(tr)) {
 			System.out.println("unable to remove traveler. no such traveler in this flight");
 			return false;
 		} 
-		seatCount--;
 		System.out.println("traveler removed");
 		return true;
 	}
@@ -74,8 +68,7 @@ public class Flight implements Comparable<Flight>, Serializable {
 		this.departureTime=other.departureTime;
 		this.landingTime=other.landingTime;
 		this.plane=other.plane;
-		this.t=other.t;
-		this.seatCount=other.seatCount;
+		this.travelers=other.travelers;
 		this.destination=other.destination;
 	}
 
@@ -97,7 +90,7 @@ public class Flight implements Comparable<Flight>, Serializable {
 
 	@Override
 	public String toString() {
-		return "Flight [id=" + id + ", travelers=" + travelers + ", seatCount=" + seatCount + ", departureTime="
+		return "Flight [id=" + id + ", travelers=" + travelers + ", seatCount=" + travelers.size() + ", departureTime="
 				+ departureTime + ", landingTime=" + landingTime + ", plane=" + plane + ", destination=" + destination
 				+ "]";
 	}
