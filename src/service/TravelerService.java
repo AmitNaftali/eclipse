@@ -1,7 +1,11 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -58,5 +62,16 @@ public class TravelerService {
 				 return dependency.get(id);
 			}
 		throw new FlightNotFoundException("id = " + id);
+	}
+	
+	@PreDestroy
+	@PostConstruct
+	public void containerStartUp()  throws Exception{ 
+		System.out.println(dependency.getAll().toString());
+
+	}
+	
+	public int getMaxFlightId() throws Exception{
+		return Collections.max(dependency.getAll()).getId();
 	}
 }
