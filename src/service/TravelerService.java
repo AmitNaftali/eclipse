@@ -86,11 +86,24 @@ public class TravelerService {
 	public int getMaxFlightId() throws Exception{
 		return Collections.max(dependency.getAll()).getId();
 	}
-	public String showDestinations() throws Exception {
+	public List<String> showDestinations() throws Exception {
 		ArrayList<String> list = new ArrayList<String>();
 		for(Flight f : (ArrayList<Flight>)dependency.getAll())
 			if(!list.contains(f.getDestination()))
 				list.add(f.getDestination());
-		return list.toString();	
+		System.out.println(list.toString());
+		return list;	
+	}
+	public List<Flight> showFlightsToDestinations(String destination) throws Exception {
+		String printFlights = "";
+		ArrayList<Flight> flights = new ArrayList<Flight>();
+		for(Flight f : (ArrayList<Flight>)dependency.getAll())
+			if(f.getDestination().equals(destination)) {
+				printFlights += f.toString();
+				printFlights += "\n";
+				flights.add(f);
+			}
+		System.out.println(printFlights);
+		return flights;	
 	}
 }
