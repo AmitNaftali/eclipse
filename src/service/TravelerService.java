@@ -86,4 +86,11 @@ public class TravelerService {
 	public int getMaxFlightId() throws Exception{
 		return Collections.max(dependency.getAll()).getId();
 	}
+	public String showDestinations() throws Exception {
+		ArrayList<String> list = new ArrayList<String>();
+		for(Flight f : (ArrayList<Flight>)dependency.getAll())
+			if(!list.contains(f.getDestination()))
+				list.add(f.getDestination());
+		return list.toString();	
+	}
 }

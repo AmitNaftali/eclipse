@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import exceptions.FullFlightException;
+import exceptions.TravelerAlredyExistsException;
 import exceptions.TravelerNotFoundException;
 
 public class Flight implements Comparable<Flight>, Serializable {
@@ -20,6 +21,14 @@ public class Flight implements Comparable<Flight>, Serializable {
 		this.landingTime = landingTime;
 		this.plane = p;
 		this.travelers = new ArrayList<Traveler>();
+		this.destination = destination;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 
@@ -50,6 +59,8 @@ public class Flight implements Comparable<Flight>, Serializable {
 		if (travelers.size() == plane.getSeatsNum()) {
 			throw new FullFlightException(this.toString());
 		}
+		if(travelers.contains(tr))
+			throw new TravelerAlredyExistsException(this.toString());
 		travelers.add(tr);
 		Collections.sort(travelers);
 		System.out.println("traveler added");
@@ -59,7 +70,6 @@ public class Flight implements Comparable<Flight>, Serializable {
 
 	public boolean removeTraveler(Traveler tr) throws Exception {
 		if (travelers.size() == 0 && !travelers.remove(tr)) {
-			//System.out.println("unable to remove traveler. no such traveler in this flight");
 			throw new TravelerNotFoundException(this.toString());
 		} 
 		System.out.println("traveler removed");
