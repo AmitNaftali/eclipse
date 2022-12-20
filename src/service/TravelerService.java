@@ -80,19 +80,17 @@ public class TravelerService {
 	@PostConstruct
 	public void containerStartUp()  throws Exception{ 
 		System.out.println(dependency.getAll().toString());
-
 	}
 	
 	public int getMaxFlightId() throws Exception{
 		return Collections.max(dependency.getAll()).getId();
 	}
-	public List<String> showDestinations() throws Exception {
+	public void showDestinations() throws Exception {
 		ArrayList<String> list = new ArrayList<String>();
 		for(Flight f : (ArrayList<Flight>)dependency.getAll())
 			if(!list.contains(f.getDestination()))
 				list.add(f.getDestination());
 		System.out.println(list.toString());
-		return list;	
 	}
 	public List<Flight> showFlightsToDestinations(String destination) throws Exception {
 		String printFlights = "";
