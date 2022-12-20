@@ -15,6 +15,5 @@
     <bean id = "travelerService" class = "service.TravelerService">
     <property name="MAX_TRAVELERS" value = "100"/>
     <property name="MAX_FLIGHTS" value = "30"/>
-    <property name="FLIGHTS_COUNT" value = "0"/>
     </bean>
 </beans>
