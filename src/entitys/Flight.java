@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import exceptions.FullFlightException;
+
 public class Flight implements Comparable<Flight>, Serializable {
 	private int id; // unique id
 	private ArrayList<Traveler> travelers;
@@ -43,10 +45,9 @@ public class Flight implements Comparable<Flight>, Serializable {
 		this.landingTime = landingTime;
 	}
 
-	public boolean addTraveler(Traveler tr) {
+	public boolean addTraveler(Traveler tr) throws Exception {
 		if (travelers.size() == plane.getSeatsNum()) {
-			System.out.println("unable to add traveler. plane is full");
-			return false;
+			throw new FullFlightException(this.toString());
 		}
 		travelers.add(tr);
 		Collections.sort(travelers);
