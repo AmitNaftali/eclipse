@@ -94,9 +94,11 @@ public class TravelerService {
 	}
 	public List<Flight> showFlightsToDestinations(String destination) throws Exception {
 		String printFlights = "";
+		int count = 1;
 		ArrayList<Flight> flights = new ArrayList<Flight>();
 		for(Flight f : (ArrayList<Flight>)dependency.getAll())
 			if(f.getDestination().equals(destination)) {
+				printFlights += count + ".";
 				printFlights += f.toString();
 				printFlights += "\n";
 				flights.add(f);
