@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public final class Airport {
-	private Airport airport;
+	private static Airport airport;
 	private String name;
 	private int flightCount;
 	private final int MAX_FLIGHT = 30;
@@ -16,7 +16,7 @@ public final class Airport {
 	
 	private Airport() {
 	}
-	public Airport getInstance() {
+	public static Airport getInstance() {
 		if(airport == null)
 			airport = new Airport();
 		return airport;	

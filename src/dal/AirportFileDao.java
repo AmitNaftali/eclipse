@@ -20,20 +20,19 @@ public class AirportFileDao implements FileDao{
 
 	@Override
 	public List<Flight> getAll() throws Exception {
-		deserialize();
+		fillAirport();
 		return airport.getFlights();
 	}
 
 	@Override
 	public void save(Flight f) throws Exception {
-		deserialize();
 		airport.addFlight(f);
 		serialize();
 	}
 
 	@Override
 	public void update(int id,Flight f) throws Exception {
-		deserialize();
+		fillAirport();
 		for (int i = 0; i < airport.getFlights().size(); i++) {
 			if(airport.getFlights().get(i).getId() == id)
 			{
@@ -45,7 +44,7 @@ public class AirportFileDao implements FileDao{
 
 	@Override
 	public void delete(int id) throws Exception {
-		deserialize();
+		fillAirport();
 		for (int i = 0; i < airport.getFlights().size(); i++) {
 			if(airport.getFlights().get(i).getId() == id)
 			{
@@ -57,7 +56,7 @@ public class AirportFileDao implements FileDao{
 
 	@Override
 	public Flight get(int id) throws Exception {
-		deserialize();
+		fillAirport();
 		for (int i = 0; i < airport.getFlights().size(); i++) {
 			if(airport.getFlights().get(i).getId() == id)
 			{
@@ -65,6 +64,17 @@ public class AirportFileDao implements FileDao{
 			}
 		}
 		return null; // didnt found
+	}
+	
+	private void fillAirport() throws Exception
+	{
+		try {
+			deserialize();
+		}catch(Exception e)//file empty
+		{
+			Airport airport = Airport.getInstance();
+			serialize();
+		}
 	}
 
 	private void serialize() throws Exception
