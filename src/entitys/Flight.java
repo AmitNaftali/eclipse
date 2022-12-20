@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import exceptions.FullFlightException;
+import exceptions.TravelerNotFoundException;
 
 public class Flight implements Comparable<Flight>, Serializable {
 	private int id; // unique id
@@ -56,10 +57,10 @@ public class Flight implements Comparable<Flight>, Serializable {
 
 	}
 
-	public boolean removeTraveler(Traveler tr) {
+	public boolean removeTraveler(Traveler tr) throws Exception {
 		if (travelers.size() == 0 && !travelers.remove(tr)) {
-			System.out.println("unable to remove traveler. no such traveler in this flight");
-			return false;
+			//System.out.println("unable to remove traveler. no such traveler in this flight");
+			throw new TravelerNotFoundException(this.toString());
 		} 
 		System.out.println("traveler removed");
 		return true;

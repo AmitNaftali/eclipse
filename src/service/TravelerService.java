@@ -68,6 +68,14 @@ public class TravelerService {
 			}
 		throw new FlightNotFoundException("flight id = " + flightid);
 	}
+	public boolean removeTravelerFromFlight(int flightid,Traveler t) throws Exception {
+		for(Flight f : (ArrayList<Flight>)dependency.getAll())
+			if(f.getId() == flightid) {
+				return f.removeTraveler(t);
+				
+			}
+		throw new FlightNotFoundException("flight id = " + flightid);
+	}
 	@PreDestroy
 	@PostConstruct
 	public void containerStartUp()  throws Exception{ 
