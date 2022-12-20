@@ -112,7 +112,7 @@ public class AirportCLI {
 	public static boolean printAllDestinations(TravelerService service)
 	{
 		try {
-			List<String> dests = service.showDestinations();
+			service.showDestinations();
 			Scanner sc = new Scanner(System.in);
 			String dest = sc.nextLine();
 			List<Flight> flights = service.showFlightsToDestinations(dest);
