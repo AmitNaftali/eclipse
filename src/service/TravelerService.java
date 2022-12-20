@@ -12,6 +12,7 @@ import entitys.Flight;
 import entitys.Traveler;
 import exceptions.FlightAlreadyExistException;
 import exceptions.FlightNotFoundException;
+import exceptions.FullFlightException;
 
 
 //service
@@ -20,7 +21,6 @@ public class TravelerService {
 	private FileDao dependency;
 	private final int MAX_TRAVELERS = 100;
     private final int MAX_FLIGHTS = 30;
-    private final int FLIGHTS_COUNT = 0;
 	
 	public List<Flight> getAll() throws Exception {
 		return dependency.getAll();
@@ -29,6 +29,8 @@ public class TravelerService {
 	public void save(Flight f) throws Exception {
 		if(((ArrayList<Flight>)dependency.getAll()).contains(f))
 			throw new FlightAlreadyExistException(f.toString());
+		if(MAX_FLIGHTS <= dependency.getAll().size())
+			throw new FullFlightException(MAX_FLIGHTS + "");
 		dependency.save(f);
 	}
 
