@@ -8,9 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
 import dal.FileDao;
 import entitys.Flight;
 import entitys.Traveler;
@@ -63,7 +60,14 @@ public class TravelerService {
 			}
 		throw new FlightNotFoundException("id = " + id);
 	}
-	
+	public boolean addTravelerToFlight(int flightid,Traveler t) throws Exception {
+		for(Flight f : (ArrayList<Flight>)dependency.getAll())
+			if(f.getId() == flightid) {
+				return f.addTraveler(t);
+				
+			}
+		throw new FlightNotFoundException("flight id = " + flightid);
+	}
 	@PreDestroy
 	@PostConstruct
 	public void containerStartUp()  throws Exception{ 
