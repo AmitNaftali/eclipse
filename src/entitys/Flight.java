@@ -72,10 +72,12 @@ public class Flight implements Comparable<Flight>, Serializable {
 	}
 
 	public boolean removeTraveler(Traveler tr) throws Exception {
-		if (travelers.size() == 0 && !travelers.remove(tr)) {
+		System.out.println(travelers.toString());
+		if (travelers.size() == 0 || !travelers.remove(tr)) {
 			throw new TravelerNotFoundException(this.toString());
 		} 
 		System.out.println("traveler removed");
+		System.out.println(travelers.toString());
 		return true;
 	}
 	public void changeFlight(Flight other)
