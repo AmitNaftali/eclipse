@@ -29,18 +29,10 @@ public class AirportCLI {
 		Scanner sc = new Scanner(System.in);  // Create a Scanner object
 		TravelerService service = (TravelerService)context.getBean("travelerService");
 
-		try {
-		service.showDestinations();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-		}
-		
-		int decision = sc.nextInt();// Read user input
 		while(printAllDestinations(service))
 		{
-			decision = sc.nextInt();
 		}
+		System.out.println("end");
 		context.close();
 	}
 
@@ -120,6 +112,7 @@ public class AirportCLI {
 	{
 		try {
 			service.showDestinations();
+			System.out.println("Enter destination:");
 			Scanner sc = new Scanner(System.in);
 			String dest = sc.nextLine();
 			List<Flight> flights = service.showFlightsToDestinations(dest);

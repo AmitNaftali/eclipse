@@ -114,7 +114,7 @@ public class TravelerService {
 		ArrayList<Flight> flights = new ArrayList<Flight>();
 		for(Flight f : (ArrayList<Flight>)dependency.getAll())
 			if(f.getDestination().equals(destination)) {
-				printFlights += count + ".";
+				printFlights += count++ + ".";
 				printFlights += f.toString();
 				printFlights += "\n";
 				flights.add(f);

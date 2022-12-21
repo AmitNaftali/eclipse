@@ -103,7 +103,7 @@ public class Flight implements Comparable<Flight>, Serializable {
 
 	@Override
 	public String toString() {
-		return "\n"+"Flight : id=" + id + ", destination = " + destination
+		return "Flight : id=" + id + ", destination = " + destination
 				+", departureTime = "
 				+ String.valueOf(departureTime).replace('.', ':') + ", landingTime = " + String.valueOf(landingTime).replace('.', ':') ;
 	}
