@@ -20,11 +20,27 @@ import exceptions.FullFlightException;
 public class TravelerService {
 	@Autowired
 	private FileDao dependency;
-	private final int MAX_TRAVELERS = 100;
-    private final int MAX_FLIGHTS = 30;
+	private int MAX_TRAVELERS = 100;
+    private int MAX_FLIGHTS = 30;
 	
 	public List<Flight> getAll() throws Exception {
 		return dependency.getAll();
+	}
+
+	public int getMAX_TRAVELERS() {
+		return MAX_TRAVELERS;
+	}
+
+	public void setMAX_TRAVELERS(int mAX_TRAVELERS) {
+		MAX_TRAVELERS = mAX_TRAVELERS;
+	}
+
+	public int getMAX_FLIGHTS() {
+		return MAX_FLIGHTS;
+	}
+
+	public void setMAX_FLIGHTS(int mAX_FLIGHTS) {
+		MAX_FLIGHTS = mAX_FLIGHTS;
 	}
 
 	public void save(Flight f) throws Exception {

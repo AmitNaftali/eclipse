@@ -1,5 +1,6 @@
 package dal;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -70,16 +71,19 @@ public class AirportFileDao implements FileDao{
 	{
 		try {
 			deserialize();
+			if(airport == null)
+				throw new Exception();
 		}catch(Exception e)//file empty
 		{
 			Airport airport = Airport.getInstance();
+			System.out.println(airport);
 			serialize();
 		}
 	}
 
 	private void serialize() throws Exception
 	{
-		 String filename = "airport.dat";  
+		 String filename = "./airport.dat";  
         //Saving of object in a file
         FileOutputStream file = new FileOutputStream(filename);
         ObjectOutputStream out = new ObjectOutputStream(file);
@@ -94,12 +98,13 @@ public class AirportFileDao implements FileDao{
 		if(airport == null) {
 			// Add the student object as a model attribute
 			// Deserialization
-			String filename = "airport.dat"; 
+			String filename = "./airport.dat"; 
 	        // Reading the object from a file
 	        FileInputStream file = new FileInputStream(filename);
 	        ObjectInputStream in = new ObjectInputStream(file);
 	        // Method for deserialization of object
 	        airport = (Airport)in.readObject();
+			System.out.println(airport);
 	        in.close();
 	        file.close();
 		}		

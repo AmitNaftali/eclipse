@@ -10,7 +10,7 @@
     <!-- Define your beans here -->
     <context:component-scan base-package="entitys"/>
     
-    <bean id = "fileDao" class = "dal.FileDao">
+    <bean id = "fileDao" class = "dal.AirportFileDao">
     </bean>
     <bean id = "travelerService" class = "service.TravelerService">
     <property name="MAX_TRAVELERS" value = "100"/>
