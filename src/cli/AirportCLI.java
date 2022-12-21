@@ -7,6 +7,7 @@ import java.util.Scanner;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import entitys.Flight;
+import entitys.Plane;
 import entitys.Traveler;
 import exceptions.FlightNotFoundException;
 import exceptions.FullFlightException;
@@ -27,13 +28,25 @@ public class AirportCLI {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		Scanner sc = new Scanner(System.in);  // Create a Scanner object
 		TravelerService service = (TravelerService)context.getBean("travelerService");
+		try {
+		Flight f1 = new Flight(service.getMaxFlightId() +1,12,13,new Plane("747",300),"argentina");
+		Flight f2 = new Flight(service.getMaxFlightId() +1,11,12,new Plane("757",200),"argentina");
+		Flight f3 = new Flight(service.getMaxFlightId() +1,10,11,new Plane("767",100),"argentina");
+		Flight f4 = new Flight(service.getMaxFlightId() +1,15,18,new Plane("777",300),"mexico");
+			service.save(f1);
+			service.save(f2);
+			service.save(f3);
+			service.save(f4);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
 		
 		int decision = sc.nextInt();// Read user input
 		while(printAllDestinations(service))
 		{
 			decision = sc.nextInt();
 		}
-		
 		context.close();
 	}
 
