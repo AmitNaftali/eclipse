@@ -106,7 +106,7 @@ public class TravelerService {
 		for(Flight f : (ArrayList<Flight>)dependency.getAll())
 			if(!list.contains(f.getDestination()))
 				list.add(f.getDestination());
-		System.out.println(list.toString());
+		System.out.println("Destinations: " + list.toString());
 	}
 	public List<Flight> showFlightsToDestinations(String destination) throws Exception {
 		String printFlights = "";
