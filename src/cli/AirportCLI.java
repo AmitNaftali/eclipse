@@ -99,7 +99,7 @@ public class AirportCLI {
 		}
 		catch(TravelerAlredyExistsException taee)
 		{
-			System.out.println("traveler already exist not found");
+			System.out.println("traveler already exist in flight");
 		}
 		catch(FullFlightException ffe)
 		{
@@ -150,11 +150,16 @@ public class AirportCLI {
 			List<Flight> flights = service.showFlightsToDestinations(dest);
 			System.out.println("Enter flight number:");
 			int flightNum = sc.nextInt();
-			Flight chosenFlight = flights.get(flightNum -1);
+			Flight chosenFlight = flights.get(flightNum);
 			System.out.println("actions: 1 - add to flight, 2 - remove from flight, 3 - show all flights, 0 - exit");
 			int decision = sc.nextInt();
 			return actions(decision,service,chosenFlight);
-		}catch(Exception e)
+		}catch(FlightNotFoundException fnfe)
+		{
+			System.out.println(fnfe.getMessage());
+			return false;
+		}
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			return false;

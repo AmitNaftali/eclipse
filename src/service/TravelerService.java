@@ -123,6 +123,8 @@ public class TravelerService {
 				printFlights += "\n";
 				flights.add(f);
 			}
+		if(flights.size() == 0)
+			throw new FlightNotFoundException("Invalid flight name");
 		System.out.println(printFlights);
 		return flights;	
 	}
