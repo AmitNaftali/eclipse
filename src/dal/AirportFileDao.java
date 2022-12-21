@@ -1,18 +1,14 @@
 package dal;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
 
 import entitys.Airport;
 import entitys.Flight;
-import entitys.Plane;
 
 
 
@@ -105,6 +101,7 @@ public class AirportFileDao implements FileDao{
 	        ObjectInputStream in = new ObjectInputStream(file);
 	        // Method for deserialization of object
 	        airport = (Airport)in.readObject();
+	        System.out.println(airport);
 	        in.close();
 	        file.close();
 		}	
