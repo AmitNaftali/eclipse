@@ -16,7 +16,8 @@ public class Flight implements Comparable<Flight>, Serializable {
 	private Plane plane;
 	private String destination;
 
-	public Flight(double departureTime, double landingTime, Plane p, String destination) {
+	public Flight(int id,double departureTime, double landingTime, Plane p, String destination) {
+		this.id = id;
 		this.departureTime = departureTime;
 		this.landingTime = landingTime;
 		this.plane = p;
@@ -102,9 +103,9 @@ public class Flight implements Comparable<Flight>, Serializable {
 
 	@Override
 	public String toString() {
-		return "Flight [id=" + id + ", travelers=" + travelers + ", seatCount=" + travelers.size() + ", departureTime="
-				+ departureTime + ", landingTime=" + landingTime + ", plane=" + plane + ", destination=" + destination
-				+ "]";
+		return "\n"+"Flight : id=" + id + ", destination = " + destination
+				+", departureTime = "
+				+ String.valueOf(departureTime).replace('.', ':') + ", landingTime = " + String.valueOf(landingTime).replace('.', ':') ;
 	}
 
 	

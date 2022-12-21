@@ -51,7 +51,7 @@ public final class Airport implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Airport [name=" + name + ", MAX_FLIGHT=" + MAX_FLIGHT + ", flights=" + flights.toString() + "]";
+		return "Airport : name=" + name  + ", flights=" + flights.toString();
 	}
 	
 	

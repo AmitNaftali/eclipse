@@ -7,6 +7,7 @@ import java.util.Scanner;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import entitys.Flight;
+import entitys.Plane;
 import entitys.Traveler;
 import exceptions.FlightNotFoundException;
 import exceptions.FullFlightException;
@@ -27,14 +28,6 @@ public class AirportCLI {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		Scanner sc = new Scanner(System.in);  // Create a Scanner object
 		TravelerService service = (TravelerService)context.getBean("travelerService");
-		
-		int decision = sc.nextInt();// Read user input
-		while(printAllDestinations(service))
-		{
-			decision = sc.nextInt();
-		}
-		
-		context.close();
 	}
 
 	public static boolean actions(int decision,TravelerService service,Flight dest) {
