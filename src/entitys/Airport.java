@@ -2,11 +2,12 @@ package entitys;
 
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class Airport {
+public final class Airport implements Serializable{
 	private static Airport airport;
 	private String name;
 	private int flightCount;

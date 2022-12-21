@@ -1,6 +1,8 @@
 package entitys;
 
-public class Plane {
+import java.io.Serializable;
+
+public class Plane implements Serializable{
 	private String model;
 	private int seatsNum;
 	
