@@ -79,7 +79,9 @@ public class TravelerService {
 	public boolean addTravelerToFlight(int flightid,Traveler t) throws Exception {
 		for(Flight f : (ArrayList<Flight>)dependency.getAll())
 			if(f.getId() == flightid) {
-				return f.addTraveler(t);
+				boolean b = f.addTraveler(t);
+				dependency.saveFile();
+				return b;
 				
 			}
 		throw new FlightNotFoundException("flight id = " + flightid);
@@ -87,7 +89,9 @@ public class TravelerService {
 	public boolean removeTravelerFromFlight(int flightid,Traveler t) throws Exception {
 		for(Flight f : (ArrayList<Flight>)dependency.getAll())
 			if(f.getId() == flightid) {
-				return f.removeTraveler(t);
+				boolean b = f.removeTraveler(t);
+				dependency.saveFile();
+				return b;
 				
 			}
 		throw new FlightNotFoundException("flight id = " + flightid);

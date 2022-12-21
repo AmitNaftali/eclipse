@@ -12,4 +12,5 @@ public interface FileDao {
 	public void update(int id, Flight a) throws Exception;
 	public void delete(int id) throws Exception;
 	public Flight get(int id) throws Exception;
+	public void saveFile()throws Exception;
 }

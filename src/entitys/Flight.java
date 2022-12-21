@@ -51,7 +51,9 @@ public class Flight implements Comparable<Flight>, Serializable {
 	public double getLandingTime() {
 		return landingTime;
 	}
-
+	public ArrayList<Traveler> getTravelers() {
+		return travelers;
+	}
 	public void setLandingTime(double landingTime) {
 		this.landingTime = landingTime;
 	}

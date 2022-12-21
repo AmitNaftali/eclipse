@@ -106,5 +106,11 @@ public class AirportFileDao implements FileDao{
 	        file.close();
 		}	
 	}
+
+	@Override
+	public void saveFile() throws Exception {
+		// TODO Auto-generated method stub
+		serialize();
+	}
 	
 }

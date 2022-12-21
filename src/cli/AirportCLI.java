@@ -25,10 +25,19 @@ public class AirportCLI {
 		//exit
 		// Load the Spring configuration file
 
+		
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		Scanner sc = new Scanner(System.in);  // Create a Scanner object
 		TravelerService service = (TravelerService)context.getBean("travelerService");
-
+		
+		
+		
+		try {
+			System.out.println(service.getAll().get(1).getTravelers().toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		while(printAllDestinations(service))
 		{
 		}
@@ -40,13 +49,13 @@ public class AirportCLI {
 		Scanner sc = new Scanner(System.in);
 		switch(decision) {
 		case 1:
-			printAllDestinations(service);
+			addTraveler(service,dest,sc);
 			break;
 		case 2:
-			printFlight(service,sc);
+			removeTraveler(service,dest,sc);
 			break;
 		case 3:
-			addTraveler(service,dest,sc);
+			printAllDestinations(service);
 			break;
 		case 4:
 			System.out.println();
@@ -101,8 +110,31 @@ public class AirportCLI {
 			e.printStackTrace();
 		}
 	}
-	public static void removeTraveler(TravelerService service,Scanner sc) {
-		
+	public static void removeTraveler(TravelerService service,Flight dest,Scanner sc) {
+		try {
+			System.out.println("Enter full name:");
+			String name = sc.nextLine();
+			System.out.println("Enter passport id:");
+			int passportId = sc.nextInt();
+			Traveler newTraveler = new Traveler(passportId,name);
+			service.removeTravelerFromFlight(dest.getId(),newTraveler);
+			System.out.println(dest.getTravelers().toString());
+		}catch(FlightNotFoundException fnfe)
+		{
+			System.out.println("flight not found");
+		}
+		catch(TravelerAlredyExistsException taee)
+		{
+			System.out.println("traveler already exist");
+		}
+		catch(FullFlightException ffe)
+		{
+			System.out.println("flight is full of travelers");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	public static void deleteTraveler(TravelerService service,Scanner sc) {
 		
@@ -116,6 +148,7 @@ public class AirportCLI {
 			Scanner sc = new Scanner(System.in);
 			String dest = sc.nextLine();
 			List<Flight> flights = service.showFlightsToDestinations(dest);
+			System.out.println("Enter flight number:");
 			int flightNum = sc.nextInt();
 			Flight chosenFlight = flights.get(flightNum -1);
 			System.out.println("actions: 1 - add to flight, 2 - remove from flight, 3 - show all flights, 0 - exit");
