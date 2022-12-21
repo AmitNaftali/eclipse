@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import entitys.Airport;
 import entitys.Flight;
+import entitys.Plane;
 
 
 
@@ -75,8 +76,7 @@ public class AirportFileDao implements FileDao{
 				throw new Exception();
 		}catch(Exception e)//file empty
 		{
-			Airport airport = Airport.getInstance();
-			System.out.println(airport);
+			airport = Airport.getInstance();
 			serialize();
 		}
 	}
@@ -92,6 +92,7 @@ public class AirportFileDao implements FileDao{
         out.close();
         file.close();   
         System.out.println("Object has been serialized");
+        deserialize();
 	}
 	private void deserialize() throws Exception
 	{
@@ -104,10 +105,9 @@ public class AirportFileDao implements FileDao{
 	        ObjectInputStream in = new ObjectInputStream(file);
 	        // Method for deserialization of object
 	        airport = (Airport)in.readObject();
-			System.out.println(airport);
 	        in.close();
 	        file.close();
-		}		
+		}	
 	}
 	
 }

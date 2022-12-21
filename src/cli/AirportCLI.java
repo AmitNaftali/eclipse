@@ -26,7 +26,7 @@ public class AirportCLI {
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		Scanner sc = new Scanner(System.in);  // Create a Scanner object
-		TravelerService service = new TravelerService();
+		TravelerService service = (TravelerService)context.getBean("travelerService");
 		
 		int decision = sc.nextInt();// Read user input
 		while(printAllDestinations(service))
