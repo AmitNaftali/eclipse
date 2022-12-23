@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import exceptions.FullFlightException;
-import exceptions.TravelerAlredyExistsException;
+import exceptions.TravelerAlreadyExistsException;
 import exceptions.TravelerNotFoundException;
 
 public class Flight implements Comparable<Flight>, Serializable {
@@ -58,23 +58,23 @@ public class Flight implements Comparable<Flight>, Serializable {
 		this.landingTime = landingTime;
 	}
 
-	public boolean addTraveler(Traveler tr) throws Exception {
+	public boolean addTraveler(Traveler traveler) throws Exception {
 		if (travelers.size() == plane.getSeatsNum()) {
-			throw new FullFlightException(this.toString());
+			throw new FullFlightException("cannot add traveler:" + traveler +" flight is full");
 		}
-		if(travelers.contains(tr))
-			throw new TravelerAlredyExistsException(this.toString());
-		travelers.add(tr);
+		if(travelers.contains(traveler))
+			throw new TravelerAlreadyExistsException("traveler:" + traveler + " already exist in flight");
+		travelers.add(traveler);
 		Collections.sort(travelers);
 		System.out.println("traveler added");
 		return true;
 
 	}
 
-	public boolean removeTraveler(Traveler tr) throws Exception {
+	public boolean removeTraveler(Traveler traveler) throws Exception {
 		System.out.println(travelers.toString());
-		if (travelers.size() == 0 || !travelers.remove(tr)) {
-			throw new TravelerNotFoundException(this.toString());
+		if (travelers.size() == 0 || !travelers.remove(traveler)) {
+			throw new TravelerNotFoundException("could not found traveler" + traveler + " in flight");
 		} 
 		System.out.println("traveler removed");
 		System.out.println(travelers.toString());
@@ -101,8 +101,8 @@ public class Flight implements Comparable<Flight>, Serializable {
 	}
 
 	@Override
-	public int compareTo(Flight f) {
-		return Double.compare(this.id, f.id);
+	public int compareTo(Flight flight) {
+		return Double.compare(this.id, flight.id);
 	}
 
 	@Override

@@ -23,45 +23,29 @@ public class AirportFileDao implements FileDao{
 	}
 
 	@Override
-	public void save(Flight f) throws Exception {
-		airport.addFlight(f);
+	public void save(Flight flight) throws Exception {
+		airport.addFlight(flight);
 		serialize();
 	}
 
 	@Override
-	public void update(int id,Flight f) throws Exception {
+	public void update(int flightId,Flight flight) throws Exception {
 		fillAirport();
-		for (int i = 0; i < airport.getFlights().size(); i++) {
-			if(airport.getFlights().get(i).getId() == id)
-			{
-				airport.getFlights().get(i).changeFlight(f);
-			}
-		}
+		airport.updateFlight(flightId, flight);
 		serialize();
 	}
 
 	@Override
-	public void delete(int id) throws Exception {
+	public void delete(int flightId) throws Exception {
 		fillAirport();
-		for (int i = 0; i < airport.getFlights().size(); i++) {
-			if(airport.getFlights().get(i).getId() == id)
-			{
-				airport.getFlights().remove(airport.getFlights().get(i));
-			}
-		}
+		airport.deleteFlight(flightId);
 		serialize();
 	}
 
 	@Override
-	public Flight get(int id) throws Exception {
+	public Flight get(int flightId) throws Exception {
 		fillAirport();
-		for (int i = 0; i < airport.getFlights().size(); i++) {
-			if(airport.getFlights().get(i).getId() == id)
-			{
-				return airport.getFlights().get(i);
-			}
-		}
-		return null; // didnt found
+		return airport.getFlight(flightId);
 	}
 	
 	private void fillAirport() throws Exception
@@ -92,24 +76,21 @@ public class AirportFileDao implements FileDao{
 	}
 	private void deserialize() throws Exception
 	{
-		if(airport == null) {
-			// Add the student object as a model attribute
-			// Deserialization
-			String filename = "./airport.dat"; 
-	        // Reading the object from a file
-	        FileInputStream file = new FileInputStream(filename);
-	        ObjectInputStream in = new ObjectInputStream(file);
-	        // Method for deserialization of object
-	        airport = (Airport)in.readObject();
-	        System.out.println(airport);
-	        in.close();
-	        file.close();
-		}	
+		// Add the student object as a model attribute
+		// Deserialization
+		String filename = "./airport.dat"; 
+        // Reading the object from a file
+        FileInputStream file = new FileInputStream(filename);
+        ObjectInputStream in = new ObjectInputStream(file);
+        // Method for deserialization of object
+        airport = (Airport)in.readObject();
+        System.out.println(airport);
+        in.close();
+        file.close();
 	}
 
 	@Override
 	public void saveFile() throws Exception {
-		// TODO Auto-generated method stub
 		serialize();
 	}
 	

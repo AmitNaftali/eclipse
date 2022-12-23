@@ -13,7 +13,8 @@
     <bean id = "fileDao" class = "dal.AirportFileDao">
     </bean>
     <bean id = "travelerService" class = "service.TravelerService">
-    <property name="MAX_TRAVELERS" value = "100"/>
-    <property name="MAX_FLIGHTS" value = "30"/>
+    <property name="maxTravelers" value = "100"/>
+    <property name="maxFlights" value = "30"/>
+    <property name="maxDestinations" value = "15"/>
     </bean>
 </beans>

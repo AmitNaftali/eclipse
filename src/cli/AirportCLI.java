@@ -11,7 +11,7 @@ import entitys.Plane;
 import entitys.Traveler;
 import exceptions.FlightNotFoundException;
 import exceptions.FullFlightException;
-import exceptions.TravelerAlredyExistsException;
+import exceptions.TravelerAlreadyExistsException;
 import service.TravelerService;
 
 public class AirportCLI {
@@ -29,24 +29,16 @@ public class AirportCLI {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		Scanner sc = new Scanner(System.in);  // Create a Scanner object
 		TravelerService service = (TravelerService)context.getBean("travelerService");
+		//start
 		
-		
-		
-		try {
-			System.out.println(service.getAll().get(1).getTravelers().toString());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		while(printAllDestinations(service))
-		{
-		}
+		while(printAllDestinations(service,sc)){}
 		System.out.println("end");
+		
+		//end
 		context.close();
 	}
 
-	public static boolean actions(int decision,TravelerService service,Flight dest) {
-		Scanner sc = new Scanner(System.in);
+	public static boolean actions(int decision,TravelerService service,Flight dest,Scanner sc) {
 		switch(decision) {
 		case 1:
 			addTraveler(service,dest,sc);
@@ -55,13 +47,7 @@ public class AirportCLI {
 			removeTraveler(service,dest,sc);
 			break;
 		case 3:
-			printAllDestinations(service);
-			break;
-		case 4:
-			System.out.println();
-			break;
-		case 5:
-			System.out.println();
+			printAllDestinations(service,sc);
 			break;
 		case 0:
 			System.out.println("Exited.");
@@ -78,7 +64,7 @@ public class AirportCLI {
 		}
 		catch(FlightNotFoundException fnfe)
 		{
-			System.out.println("Flight not found.");
+			System.out.println(fnfe.getMessage());
 		}
 		catch(Exception e)
 		{
@@ -95,15 +81,15 @@ public class AirportCLI {
 			service.addTravelerToFlight(dest.getId(), newTraveler);
 		}catch(FlightNotFoundException fnfe)
 		{
-			System.out.println("flight not found");
+			System.out.println(fnfe.getMessage());
 		}
-		catch(TravelerAlredyExistsException taee)
+		catch(TravelerAlreadyExistsException taee)
 		{
-			System.out.println("traveler already exist in flight");
+			System.out.println(taee.getMessage());
 		}
 		catch(FullFlightException ffe)
 		{
-			System.out.println("flight is full of travelers");
+			System.out.println(ffe.getMessage());
 		}
 		catch(Exception e)
 		{
@@ -121,31 +107,26 @@ public class AirportCLI {
 			System.out.println(dest.getTravelers().toString());
 		}catch(FlightNotFoundException fnfe)
 		{
-			System.out.println("flight not found");
+			System.out.println(fnfe.getMessage());
 		}
-		catch(TravelerAlredyExistsException taee)
+		catch(TravelerAlreadyExistsException taee)
 		{
-			System.out.println("traveler already exist");
+			System.out.println(taee.getMessage());
 		}
 		catch(FullFlightException ffe)
 		{
-			System.out.println("flight is full of travelers");
-		}
-		catch(Exception e)
+			System.out.println(ffe.getMessage());
+		}	catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	public static void deleteTraveler(TravelerService service,Scanner sc) {
-		
-	}
 
-	public static boolean printAllDestinations(TravelerService service)
+	public static boolean printAllDestinations(TravelerService service,Scanner sc)
 	{
 		try {
 			service.showDestinations();
 			System.out.println("Enter destination:");
-			Scanner sc = new Scanner(System.in);
 			String dest = sc.nextLine();
 			List<Flight> flights = service.showFlightsToDestinations(dest);
 			System.out.println("Enter flight number:");
@@ -153,7 +134,7 @@ public class AirportCLI {
 			Flight chosenFlight = flights.get(flightNum);
 			System.out.println("actions: 1 - add to flight, 2 - remove from flight, 3 - show all flights, 0 - exit");
 			int decision = sc.nextInt();
-			return actions(decision,service,chosenFlight);
+			return actions(decision,service,chosenFlight,sc);
 		}catch(FlightNotFoundException fnfe)
 		{
 			System.out.println(fnfe.getMessage());
