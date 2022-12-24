@@ -30,8 +30,15 @@ public class AirportCLI {
 		Scanner sc = new Scanner(System.in);  // Create a Scanner object
 		TravelerService service = (TravelerService)context.getBean("travelerService");
 		//start
+
+		try {
+			Traveler traveler = new Traveler(1, "yaronBuhadana");
+			service.removeTravelerFromFlight(1, traveler);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		while(printAllDestinations(service,sc)){}
-		System.out.println("end");
 		
 		//end
 		context.close();

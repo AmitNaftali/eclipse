@@ -100,6 +100,8 @@ public class TravelerService {
 	}
 	
 	public int getMaxFlightId() throws Exception{
+		if(dependency.getAll().size() == 0)
+			return 0;
 		return Collections.max(dependency.getAll()).getId();
 	}
 	
