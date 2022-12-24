@@ -30,7 +30,6 @@ public class AirportCLI {
 		Scanner sc = new Scanner(System.in);  // Create a Scanner object
 		TravelerService service = (TravelerService)context.getBean("travelerService");
 		//start
-		
 		while(printAllDestinations(service,sc)){}
 		System.out.println("end");
 		

@@ -13,13 +13,11 @@ import exceptions.FullAirportException;
 public final class Airport implements Serializable{
 	private static Airport airport;
 	private String name;
-	private final int MAX_FLIGHT = 30;
 	private ArrayList<Flight> flights;
 
 	
 	private Airport() {
 		flights = new ArrayList<Flight>();
-		name = "jfk";
 	}
 	
 	public static Airport getInstance() {
@@ -35,12 +33,7 @@ public final class Airport implements Serializable{
 		this.flights = flights;
 	}
 
-	public void addFlight(Flight flight) throws Exception {
-		if (flights.size() == MAX_FLIGHT) {
-			throw new FullAirportException("cannot add flight. airport is full of flights:" + MAX_FLIGHT);
-		}
-		if(flights.contains(flight))
-			throw new FlightAlreadyExistException("flight:" + flight + " already exist in airport");
+	public void addFlight(Flight flight) {
 		flights.add(flight);
 		Collections.sort(flights);
 	}

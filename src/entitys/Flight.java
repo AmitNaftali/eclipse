@@ -24,6 +24,14 @@ public class Flight implements Comparable<Flight>, Serializable {
 		this.travelers = new ArrayList<Traveler>();
 		this.destination = destination;
 	}
+	
+	public Plane getPlane() {
+		return plane;
+	}
+
+	public void setPlane(Plane plane) {
+		this.plane = plane;
+	}
 
 	public String getDestination() {
 		return destination;
@@ -58,12 +66,7 @@ public class Flight implements Comparable<Flight>, Serializable {
 		this.landingTime = landingTime;
 	}
 
-	public boolean addTraveler(Traveler traveler) throws Exception {
-		if (travelers.size() == plane.getSeatsNum()) {
-			throw new FullFlightException("cannot add traveler:" + traveler +" flight is full");
-		}
-		if(travelers.contains(traveler))
-			throw new TravelerAlreadyExistsException("traveler:" + traveler + " already exist in flight");
+	public boolean addTraveler(Traveler traveler){
 		travelers.add(traveler);
 		Collections.sort(travelers);
 		System.out.println("traveler added");
@@ -71,14 +74,8 @@ public class Flight implements Comparable<Flight>, Serializable {
 
 	}
 
-	public boolean removeTraveler(Traveler traveler) throws Exception {
-		System.out.println(travelers.toString());
-		if (travelers.size() == 0 || !travelers.remove(traveler)) {
-			throw new TravelerNotFoundException("could not found traveler" + traveler + " in flight");
-		} 
-		System.out.println("traveler removed");
-		System.out.println(travelers.toString());
-		return true;
+	public boolean removeTraveler(Traveler traveler) {
+		return travelers.remove(traveler);
 	}
 	public void changeFlight(Flight other)
 	{

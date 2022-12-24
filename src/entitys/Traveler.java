@@ -41,7 +41,9 @@ public class Traveler implements Comparable<Traveler>,Serializable{
 		// TODO Auto-generated method stub
 		if(obj == this)
 			return true;
-		if(obj == null || obj.getClass() != this.getClass())
+		if(obj == null)
+			return false;
+		if(obj.getClass() != this.getClass())
 			return false;
 		Traveler t = (Traveler)obj;
 		return t.passportId == this.passportId;

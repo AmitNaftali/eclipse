@@ -52,6 +52,7 @@ public class AirportFileDao implements FileDao{
 	{
 		try {
 			deserialize();
+			System.out.println(airport);
 			if(airport == null)
 				throw new Exception();
 		}catch(Exception e)//file empty
@@ -71,8 +72,6 @@ public class AirportFileDao implements FileDao{
         out.writeObject(airport);
         out.close();
         file.close();   
-        System.out.println("Object has been serialized");
-        deserialize();
 	}
 	private void deserialize() throws Exception
 	{
@@ -84,7 +83,6 @@ public class AirportFileDao implements FileDao{
         ObjectInputStream in = new ObjectInputStream(file);
         // Method for deserialization of object
         airport = (Airport)in.readObject();
-        System.out.println(airport);
         in.close();
         file.close();
 	}

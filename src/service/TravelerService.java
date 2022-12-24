@@ -15,6 +15,8 @@ import exceptions.FlightAlreadyExistException;
 import exceptions.FlightNotFoundException;
 import exceptions.FullAirportException;
 import exceptions.FullFlightException;
+import exceptions.TravelerAlreadyExistsException;
+import exceptions.TravelerNotFoundException;
 
 
 //service
@@ -36,21 +38,24 @@ public class TravelerService {
 			throw new FullAirportException("cannot add flight. airport has reached max flights:" + maxFlights);
 		if(maxDestinations <= getDestinations().size())
 			throw new FullAirportException("cannot add flight. airport has reached max destinations:" + maxDestinations);
+		
 		dependency.save(flight);
 	}
 
 	public void update(int flightId,Flight flightChange) throws Exception {
 		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
 			if(flight.getId() == flightId) {
+				
 				 dependency.update(flightId, flightChange);
 				 return;
 			}
-		throw new FlightNotFoundException("flight: " + flightChange.toString()+ "could not found");
+		throw new FlightNotFoundException("flight: " + flightChange + "could not found");
 	}
 
 	public void delete(int flightId) throws Exception {
 		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
 			if(flight.getId() == flightId) {
+				
 				 dependency.delete(flightId);
 				 return;
 			}
@@ -60,6 +65,7 @@ public class TravelerService {
 	public Flight get(int flightId) throws Exception {
 		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
 			if(flight.getId() == flightId) {
+				
 				 return dependency.get(flightId);
 			}
 		throw new FlightNotFoundException("flight: with id:" + flightId + "could not found");
@@ -67,16 +73,28 @@ public class TravelerService {
 	public void addTravelerToFlight(int flightId,Traveler traveler) throws Exception {
 		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
 			if(flight.getId() == flightId) {
+				if (flight.getTravelers().size() == maxTravelers) {
+					throw new FullFlightException("cannot add traveler:" + traveler +" flight is full");
+				}
+				if(flight.getTravelers().contains(traveler))
+					throw new TravelerAlreadyExistsException("traveler:" + traveler + " already exist in flight");
+				
 				flight.addTraveler(traveler);
 				dependency.saveFile();
+				return;
 			}
 		throw new FlightNotFoundException("flight: with id:" + flightId + "could not found");
 	}
 	public void removeTravelerFromFlight(int flightId,Traveler traveler) throws Exception {
 		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
 			if(flight.getId() == flightId) {
+				if (flight.getTravelers().size() == 0 || !flight.removeTraveler(traveler)) {
+					throw new TravelerNotFoundException("could not found traveler" + traveler + " in flight");
+				} 
+				
 				flight.removeTraveler(traveler);
-				dependency.saveFile();			
+				dependency.saveFile();
+				return;
 			}
 		throw new FlightNotFoundException("flight: with id:" + flightId + "could not found");
 	}
@@ -118,8 +136,8 @@ public class TravelerService {
 	
 	@PreDestroy
 	@PostConstruct
-	public void containerStartUp()  throws Exception{ 
-		System.out.println(dependency.getAll().toString());
+	public void containerStartUp()  throws Exception{
+		System.out.println(dependency.getAll());
 	}
 
 	public int getMaxTravelers() {
