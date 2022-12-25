@@ -169,7 +169,7 @@ public class AirportCLI {
 			return actions(decision,service,chosenFlight);
 		}catch(FlightNotFoundException fnfe)
 		{
-			System.out.println(fnfe.getMessage() + "");
+			System.out.println(fnfe.getMessage());
 			return false;
 		}
 		catch(Exception e)
