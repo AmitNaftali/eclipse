@@ -13,4 +13,5 @@ public interface FileDao {
 	public void delete(int id) throws Exception;
 	public Flight get(int id) throws Exception;
 	public void saveFile()throws Exception;
+	public String printAirport() throws Exception;
 }

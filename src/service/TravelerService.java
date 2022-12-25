@@ -138,7 +138,7 @@ public class TravelerService {
 	@PreDestroy
 	@PostConstruct
 	public void containerStartUp()  throws Exception{
-		System.out.println(dependency.getAll());
+		System.out.println(dependency.printAirport());
 	}
 
 	public int getMaxTravelers() {

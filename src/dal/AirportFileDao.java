@@ -52,7 +52,6 @@ public class AirportFileDao implements FileDao{
 	{
 		try {
 			deserialize();
-			System.out.println(airport);
 			if(airport == null)
 				throw new Exception();
 		}catch(Exception e)//file empty
@@ -90,6 +89,12 @@ public class AirportFileDao implements FileDao{
 	@Override
 	public void saveFile() throws Exception {
 		serialize();
+	}
+
+	
+	public String printAirport() throws Exception {	
+		fillAirport();
+		return airport.toString();
 	}
 	
 }
