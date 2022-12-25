@@ -92,7 +92,6 @@ public class TravelerService {
 					throw new TravelerNotFoundException("could not found traveler" + traveler + " in flight");
 				} 
 				
-				flight.removeTraveler(traveler);
 				dependency.saveFile();
 				return;
 			}
@@ -147,7 +146,7 @@ public class TravelerService {
 	}
 
 	public void setMaxTravelers(int maxTravelers) {
-		maxTravelers = maxTravelers;
+		this.maxTravelers = maxTravelers;
 	}
 
 	public int getMaxFlights() {
@@ -155,7 +154,7 @@ public class TravelerService {
 	}
 
 	public void setMaxFlights(int maxFlights) {
-		maxFlights = maxFlights;
+		this.maxFlights = maxFlights;
 	}
 	
 	public int getMaxDestinations() {
@@ -164,5 +163,15 @@ public class TravelerService {
 
 	public void setMaxDestinations(int maxDestinations) {
 		this.maxDestinations = maxDestinations;
+	}
+	public List<Flight> getTravelerFlights(Traveler traveler,String dest) throws Exception{
+		ArrayList<Flight> flights = new ArrayList<Flight>();
+		for(Flight flight : (ArrayList<Flight>)dependency.getAll()) {
+			if(flight.getDestination().equals(dest) && flight.getTravelers().contains(traveler))
+				flights.add(flight);
+		}
+		if(flights.isEmpty())
+			throw new TravelerNotFoundException("could not found traveler" + traveler + " in flights to " + dest + "!");
+		return flights;
 	}
 }
