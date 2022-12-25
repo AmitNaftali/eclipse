@@ -12,6 +12,7 @@ import entitys.Traveler;
 import exceptions.FlightNotFoundException;
 import exceptions.FullFlightException;
 import exceptions.TravelerAlreadyExistsException;
+import exceptions.TravelerNotFoundException;
 import service.TravelerService;
 
 public class AirportCLI {
@@ -53,6 +54,9 @@ public class AirportCLI {
 			removeTraveler(service,dest,sc);
 			break;
 		case 3:
+			getAllTravelerFlights(service,dest,sc);
+			break;
+		case 4:
 			printAllDestinations(service,sc);
 			break;
 		case 0:
@@ -127,6 +131,24 @@ public class AirportCLI {
 			e.printStackTrace();
 		}
 	}
+	public static void getAllTravelerFlights(TravelerService service,Flight dest,Scanner sc) {
+		try {
+			System.out.println("Enter full name:");
+			String name = sc.nextLine();
+			System.out.println("Enter passport id:");
+			int passportId = sc.nextInt();
+			Traveler traveler = new Traveler(passportId,name);
+			List<Flight> travelerDests = service.getTravelerFlights(traveler,dest.getDestination());
+			System.out.println("your flights to " + dest +" are: " + travelerDests);
+		}catch(TravelerNotFoundException tnfe)
+		{
+			System.out.println(tnfe.getMessage());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	public static boolean printAllDestinations(TravelerService service,Scanner sc)
 	{
@@ -138,7 +160,7 @@ public class AirportCLI {
 			System.out.println("Enter flight number:");
 			int flightNum = sc.nextInt();
 			Flight chosenFlight = flights.get(flightNum);
-			System.out.println("actions: 1 - add to flight, 2 - remove from flight, 3 - show all flights, 0 - exit");
+			System.out.println("actions: 1 - add to flight, 2 - remove from flight, 3 - show your flights, 4 - show all flights, 0 - exit");
 			int decision = sc.nextInt();
 			return actions(decision,service,chosenFlight,sc);
 		}catch(FlightNotFoundException fnfe)
