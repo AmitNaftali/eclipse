@@ -9,6 +9,7 @@ import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import dal.FileDao;
+import entitys.Airport;
 import entitys.Flight;
 import entitys.Traveler;
 import exceptions.FlightAlreadyExistException;
@@ -26,6 +27,7 @@ public class TravelerService {
 	private int maxTravelers = 100;
     private int maxFlights = 30;
     private int maxDestinations = 15;
+	private Airport airport;
 	
 	public List<Flight> getAll() throws Exception {
 		return dependency.getAll();
