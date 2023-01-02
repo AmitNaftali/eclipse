@@ -38,10 +38,10 @@ public final class Airport implements Serializable{
 		Collections.sort(flights);
 	}
 	
-	public void updateFlight(int flightId, Flight flight)
+	public void updateFlight(Flight flight)
 	{
 		for (int i = 0; i < flights.size(); i++) {
-			if(flights.get(i).getId() == flightId)
+			if(flights.get(i).getId() == flight.getId())
 			{
 				flights.get(i).changeFlight(flight);
 			}

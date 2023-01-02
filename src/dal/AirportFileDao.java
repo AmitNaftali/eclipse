@@ -29,9 +29,9 @@ public class AirportFileDao implements FileDao{
 	}
 
 	@Override
-	public void update(int flightId,Flight flight) throws Exception {
+	public void update(Flight flight) throws Exception {
 		fillAirport();
-		airport.updateFlight(flightId, flight);
+		airport.updateFlight(flight);
 		serialize();
 	}
 
@@ -51,8 +51,8 @@ public class AirportFileDao implements FileDao{
 	private void fillAirport() throws Exception
 	{
 		try {
-			deserialize();
-			if(airport == null)
+			deserialize(Airport.getInstance());
+			if(Airport.getInstance() == null)
 				throw new Exception();
 		}catch(Exception e)//file empty
 		{
@@ -68,11 +68,11 @@ public class AirportFileDao implements FileDao{
         FileOutputStream file = new FileOutputStream(filename);
         ObjectOutputStream out = new ObjectOutputStream(file);
         // Method for serialization of object
-        out.writeObject(airport);
+        out.writeObject(Airport.getInstance());
         out.close();
         file.close();   
 	}
-	private void deserialize() throws Exception
+	private void deserialize(Airport airport) throws Exception
 	{
 		// Add the student object as a model attribute
 		// Deserialization
@@ -87,7 +87,7 @@ public class AirportFileDao implements FileDao{
 	}
 
 	@Override
-	public void saveFile() throws Exception {
+	public void saveAirport() throws Exception {
 		serialize();
 	}
 

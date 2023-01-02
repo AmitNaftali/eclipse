@@ -144,11 +144,11 @@ public class AirportCLI {
 			Traveler traveler = new Traveler(passportId,name);
 			List<Flight> travelerDests = service.getTravelerFlights(traveler,dest.getDestination());
 			System.out.println("your flights to " + dest.getDestination() +" are: " + travelerDests);
-		}catch(TravelerNotFoundException tnfe)
+		}catch(TravelerNotFoundException tnfe) // traveler does not exist
 		{
 			System.out.println(tnfe.getMessage());
 		}
-		catch(Exception e)
+		catch(Exception e) //error
 		{
 			e.printStackTrace();
 		}
@@ -167,12 +167,12 @@ public class AirportCLI {
 			System.out.println("actions: 1 - add to flight, 2 - remove from flight, 3 - show your flights, 4 - show all flights, 0 - exit");
 			int decision = sc.nextInt();
 			return actions(decision,service,chosenFlight);
-		}catch(FlightNotFoundException fnfe)
+		}catch(FlightNotFoundException fnfe) // destination does not exist
 		{
 			System.out.println(fnfe.getMessage());
-			return false;
+			return true;
 		}
-		catch(Exception e)
+		catch(Exception e) // error
 		{
 			e.printStackTrace();
 			return false;
