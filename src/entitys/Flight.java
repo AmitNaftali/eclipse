@@ -77,14 +77,7 @@ public class Flight implements Comparable<Flight>, Serializable {
 	public boolean removeTraveler(Traveler traveler) {
 		return travelers.remove(traveler);
 	}
-	public void changeFlight(Flight other)
-	{
-		this.departureTime=other.departureTime;
-		this.landingTime=other.landingTime;
-		this.plane=other.plane;
-		this.travelers=other.travelers;
-		this.destination=other.destination;
-	}
+	
 
 	@Override
 	public boolean equals(Object obj) {

@@ -14,49 +14,45 @@ import entitys.Flight;
 
 
 public class AirportFileDao implements FileDao{
-	private Airport airport;
 
 	@Override
 	public List<Flight> getAll() throws Exception {
 		fillAirport();
-		return airport.getFlights();
+		return Airport.getInstance().getFlights();
 	}
 
 	@Override
 	public void save(Flight flight) throws Exception {
-		airport.addFlight(flight);
+		Airport.getInstance().addFlight(flight);
 		serialize();
 	}
 
 	@Override
 	public void update(Flight flight) throws Exception {
 		fillAirport();
-		airport.updateFlight(flight);
+		Airport.getInstance().updateFlight(flight);
 		serialize();
 	}
 
 	@Override
 	public void delete(int flightId) throws Exception {
 		fillAirport();
-		airport.deleteFlight(flightId);
+		Airport.getInstance().deleteFlight(flightId);
 		serialize();
 	}
 
 	@Override
 	public Flight get(int flightId) throws Exception {
 		fillAirport();
-		return airport.getFlight(flightId);
+		return Airport.getInstance().getFlight(flightId);
 	}
 	
 	private void fillAirport() throws Exception
 	{
 		try {
-			deserialize(Airport.getInstance());
-			if(Airport.getInstance() == null)
-				throw new Exception();
+			deserialize();
 		}catch(Exception e)//file empty
 		{
-			airport = Airport.getInstance();
 			serialize();
 		}
 	}
@@ -72,7 +68,7 @@ public class AirportFileDao implements FileDao{
         out.close();
         file.close();   
 	}
-	private void deserialize(Airport airport) throws Exception
+	private void deserialize() throws Exception
 	{
 		// Add the student object as a model attribute
 		// Deserialization
@@ -81,20 +77,8 @@ public class AirportFileDao implements FileDao{
         FileInputStream file = new FileInputStream(filename);
         ObjectInputStream in = new ObjectInputStream(file);
         // Method for deserialization of object
-        airport = (Airport)in.readObject();
+        Airport.setAirport((Airport)in.readObject());
         in.close();
         file.close();
-	}
-
-	@Override
-	public void saveAirport() throws Exception {
-		serialize();
-	}
-
-	
-	public String printAirport() throws Exception {	
-		fillAirport();
-		return airport.toString();
-	}
-	
+	}	
 }

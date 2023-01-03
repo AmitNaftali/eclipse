@@ -33,7 +33,6 @@ public class AirportCLI {
 		TravelerService service = (TravelerService)context.getBean("travelerService");
 		//start
 
-		
 		while(printAllDestinations(service)){}
 		
 		//end
@@ -52,6 +51,7 @@ public class AirportCLI {
 			getAllTravelerFlights(service,dest);
 			break;
 		case 4:
+			sc.nextLine();
 			printAllDestinations(service);
 			break;
 		case 0:

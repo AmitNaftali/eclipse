@@ -17,13 +17,17 @@ public final class Airport implements Serializable{
 
 	
 	private Airport() {
-		flights = new ArrayList<Flight>();
+		flights = new ArrayList<Flight>(); 
 	}
 	
 	public static Airport getInstance() {
 		if(airport == null)
 			airport = new Airport();
 		return airport;	
+	}
+	public static void setAirport(Airport airport2)
+	{
+		airport = airport2;
 	}
 	public List<Flight> getFlights() {
 		return flights;
@@ -35,7 +39,6 @@ public final class Airport implements Serializable{
 
 	public void addFlight(Flight flight) {
 		flights.add(flight);
-		Collections.sort(flights);
 	}
 	
 	public void updateFlight(Flight flight)
@@ -43,10 +46,9 @@ public final class Airport implements Serializable{
 		for (int i = 0; i < flights.size(); i++) {
 			if(flights.get(i).getId() == flight.getId())
 			{
-				flights.get(i).changeFlight(flight);
+				flights.set(i,flight);
 			}
 		}
-		Collections.sort(flights);
 	}
 	
 	public void deleteFlight(int flightId)

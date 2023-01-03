@@ -27,14 +27,13 @@ public class TravelerService {
 	private int maxTravelers = 100;
     private int maxFlights = 30;
     private int maxDestinations = 15;
-	private Airport airport;
 	
 	public List<Flight> getAll() throws Exception {
 		return dependency.getAll();
 	}
 
 	public void save(Flight flight) throws Exception {
-		if(((ArrayList<Flight>)dependency.getAll()).contains(flight))
+		if((dependency.getAll()).contains(flight))
 			throw new FlightAlreadyExistException("flight: " + flight + " already exist");
 		if(maxFlights <= dependency.getAll().size())
 			throw new FullAirportException("cannot add flight. airport has reached max flights:" + maxFlights);
@@ -45,7 +44,7 @@ public class TravelerService {
 	}
 
 	public void update(Flight flightChange) throws Exception {
-		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
+		for(Flight flight : dependency.getAll())
 			if(flight.getId() == flightChange.getId()) {
 				
 				 dependency.update(flightChange);
@@ -55,9 +54,8 @@ public class TravelerService {
 	}
 
 	public void delete(int flightId) throws Exception {
-		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
+		for(Flight flight : dependency.getAll())
 			if(flight.getId() == flightId) {
-				
 				 dependency.delete(flightId);
 				 return;
 			}
@@ -65,7 +63,7 @@ public class TravelerService {
 	}
 
 	public Flight get(int flightId) throws Exception {
-		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
+		for(Flight flight : dependency.getAll())
 			if(flight.getId() == flightId) {
 				
 				 return dependency.get(flightId);
@@ -74,7 +72,7 @@ public class TravelerService {
 	}
 	public void addTravelerToFlight(int flightId,Traveler traveler) throws Exception {
 		//update flight
-		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
+		for(Flight flight : dependency.getAll())
 			if(flight.getId() == flightId) {
 				if (flight.getTravelers().size() == maxTravelers) {
 					throw new FullFlightException("cannot add traveler:" + traveler +" flight is full");
@@ -83,20 +81,20 @@ public class TravelerService {
 					throw new TravelerAlreadyExistsException("traveler:" + traveler + " already exist in flight");
 				
 				flight.addTraveler(traveler);
-				dependency.saveAirport();
+				dependency.update(flight);
 				return;
 			}
 		throw new FlightNotFoundException("flight: with id:" + flightId + "could not found");
 	}
 	public void removeTravelerFromFlight(int flightId,Traveler traveler) throws Exception {
 		//update flight
-		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
+		for(Flight flight : dependency.getAll())
 			if(flight.getId() == flightId) {
 				if (flight.getTravelers().size() == 0 || !flight.removeTraveler(traveler)) {
 					throw new TravelerNotFoundException("could not found traveler" + traveler + " in flight");
 				} 
 				
-				dependency.saveAirport();
+				dependency.update(flight);
 				return;
 			}
 		throw new FlightNotFoundException("flight: with id:" + flightId + "could not found");
@@ -116,7 +114,7 @@ public class TravelerService {
 	private List<String> getDestinations() throws Exception
 	{
 		ArrayList<String> list = new ArrayList<String>();
-		for(Flight f : (ArrayList<Flight>)dependency.getAll())
+		for(Flight f : dependency.getAll())
 			if(!list.contains(f.getDestination()))
 				list.add(f.getDestination());
 		return list;
@@ -126,7 +124,7 @@ public class TravelerService {
 		String printFlights = "";
 		int count = 1;
 		ArrayList<Flight> flights = new ArrayList<Flight>();
-		for(Flight flight : (ArrayList<Flight>)dependency.getAll())
+		for(Flight flight : dependency.getAll())
 			if(flight.getDestination().equals(destination)) {
 				printFlights += count++ + ".";
 				printFlights += flight.toString();
@@ -142,7 +140,8 @@ public class TravelerService {
 	@PreDestroy
 	@PostConstruct
 	public void containerStartUp()  throws Exception{
-		System.out.println(dependency.printAirport());
+		getAll();
+		System.out.println(Airport.getInstance());
 	}
 
 	public int getMaxTravelers() {
@@ -170,7 +169,7 @@ public class TravelerService {
 	}
 	public List<Flight> getTravelerFlights(Traveler traveler,String dest) throws Exception{
 		ArrayList<Flight> flights = new ArrayList<Flight>();
-		for(Flight flight : (ArrayList<Flight>)dependency.getAll()) {
+		for(Flight flight : dependency.getAll()) {
 			if(flight.getDestination().equals(dest) && flight.getTravelers().contains(traveler))
 				flights.add(flight);
 		}
