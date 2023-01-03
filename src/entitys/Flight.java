@@ -68,8 +68,6 @@ public class Flight implements Comparable<Flight>, Serializable {
 
 	public boolean addTraveler(Traveler traveler){
 		travelers.add(traveler);
-		Collections.sort(travelers);
-		System.out.println("traveler added");
 		return true;
 
 	}

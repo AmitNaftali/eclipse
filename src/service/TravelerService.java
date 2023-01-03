@@ -24,9 +24,9 @@ import exceptions.TravelerNotFoundException;
 public class TravelerService {
 	@Autowired
 	private FileDao dependency;
-	private int maxTravelers = 100;
-    private int maxFlights = 30;
-    private int maxDestinations = 15;
+	private int maxTravelers;
+    private int maxFlights;
+    private int maxDestinations;
 	
 	public List<Flight> getAll() throws Exception {
 		return dependency.getAll();
@@ -82,12 +82,12 @@ public class TravelerService {
 				
 				flight.addTraveler(traveler);
 				dependency.update(flight);
+				System.out.println("traveler added");
 				return;
 			}
 		throw new FlightNotFoundException("flight: with id:" + flightId + "could not found");
 	}
 	public void removeTravelerFromFlight(int flightId,Traveler traveler) throws Exception {
-		//update flight
 		for(Flight flight : dependency.getAll())
 			if(flight.getId() == flightId) {
 				if (flight.getTravelers().size() == 0 || !flight.removeTraveler(traveler)) {
@@ -95,23 +95,14 @@ public class TravelerService {
 				} 
 				
 				dependency.update(flight);
+				System.out.println("traveler removed");
 				return;
 			}
 		throw new FlightNotFoundException("flight: with id:" + flightId + "could not found");
 	}
 	
-	public int getMaxFlightId() throws Exception{
-		if(dependency.getAll().size() == 0)
-			return 0;
-		return Collections.max(dependency.getAll()).getId();
-	}
 	
-	public void showDestinations() throws Exception {
-		List<String> list = getDestinations();
-		System.out.println("Destinations: " + list.toString());
-	}
-	
-	private List<String> getDestinations() throws Exception
+	public List<String> getDestinations() throws Exception
 	{
 		ArrayList<String> list = new ArrayList<String>();
 		for(Flight f : dependency.getAll())

@@ -32,7 +32,7 @@ public class AirportCLI {
 		
 		TravelerService service = (TravelerService)context.getBean("travelerService");
 		//start
-
+		
 		while(printAllDestinations(service)){}
 		
 		//end
@@ -105,18 +105,12 @@ public class AirportCLI {
 	}
 	public static void removeTraveler(TravelerService service,Flight dest) {
 		try {
-			sc.nextLine();
-			
-			System.out.println("Enter full name:");
-			String name = sc.nextLine();
 			
 			System.out.println("Enter passport id:");
 			int passportId = sc.nextInt();
-	
 			sc.nextLine();
-			Traveler newTraveler = new Traveler(passportId,name);
+			Traveler newTraveler = new Traveler(passportId,""); //empty name for removing
 			service.removeTravelerFromFlight(dest.getId(),newTraveler);
-			System.out.println(dest.getTravelers().toString());
 		}catch(FlightNotFoundException fnfe)
 		{
 			System.out.println(fnfe.getMessage());
@@ -135,13 +129,10 @@ public class AirportCLI {
 	}
 	public static void getAllTravelerFlights(TravelerService service,Flight dest) {
 		try {
-			sc.nextLine();
-			System.out.println("Enter full name:");
-			String name = sc.nextLine();
 			System.out.println("Enter passport id:");
 			int passportId = sc.nextInt();
 			sc.nextLine();
-			Traveler traveler = new Traveler(passportId,name);
+			Traveler traveler = new Traveler(passportId,"");
 			List<Flight> travelerDests = service.getTravelerFlights(traveler,dest.getDestination());
 			System.out.println("your flights to " + dest.getDestination() +" are: " + travelerDests);
 		}catch(TravelerNotFoundException tnfe) // traveler does not exist
@@ -157,7 +148,7 @@ public class AirportCLI {
 	public static boolean printAllDestinations(TravelerService service)
 	{
 		try {
-			service.showDestinations();
+			System.out.println("Destinations: " + service.getDestinations());
 			System.out.println("Enter destination:");
 			String dest = sc.nextLine();
 			List<Flight> flights = service.showFlightsToDestinations(dest);
